@@ -8,13 +8,14 @@ public class Main2Updated {
 			File file = new File("SchoolDB.txt");
 			TreeMap<String, Person> names = new TreeMap<>();
 			TreeMap<Long, Person> ids = new TreeMap<>();
+			TreeMap<String, Person> email = new TreeMap<>();
 			RBTree tree = new RBTree(0);
 			Scanner scanner = new Scanner(file), input = new Scanner(System.in);
 			String searchByName = "", possible, choice = "";
 			boolean found = false;
 			long searchById = 0;
 			int count = 0;
-			boolean exit = true;
+			boolean exit = false;
 
 			while (scanner.hasNext()) {
 				String role = scanner.next();
@@ -26,6 +27,7 @@ public class Main2Updated {
 				Person person = new Person(role, id, firstName + " " + lastName, corp, email);
 				names.put(person.getName(), person);
 				ids.put(person.getID(), person);
+				email.put(person.getEmail(), person);
 				tree.insert(person);
 			}
 			scanner.close();
