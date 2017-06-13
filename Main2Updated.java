@@ -3,12 +3,14 @@ import java.io.*;
 import java.io.FileNotFoundException;
 
 public class Main2Updated {
+   static TreeMap<String, Person> emails = new TreeMap<>();
+   static String username="";
+   static long password=0;
 	public static void main(String[] args) {
 		try {
 			File file = new File("SchoolDB.txt");
 			TreeMap<String, Person> names = new TreeMap<>();
-			TreeMap<Long, Person> ids = new TreeMap<>();
-			TreeMap<String, Person> email = new TreeMap<>();
+			TreeMap<Long, Person> ids = new TreeMap<>();;
 			RBTree tree = new RBTree(0);
 			Scanner scanner = new Scanner(file), input = new Scanner(System.in);
 			String searchByName = "", possible, choice = "";
@@ -27,7 +29,7 @@ public class Main2Updated {
 				Person person = new Person(role, id, firstName + " " + lastName, corp, email);
 				names.put(person.getName(), person);
 				ids.put(person.getID(), person);
-				email.put(person.getEmail(), person);
+				emails.put(person.getEmail(), person);
 				tree.insert(person);
 			}
 			scanner.close();
@@ -40,6 +42,22 @@ public class Main2Updated {
 					+ "\n**                                                          **"
 					+ "\n**************************************************************\n\n");
 			System.out.println("If you see any problems with our database, please call us at 908-674-1124\n\n");
+         
+         while(exit==false){
+            System.out.println("Please log in using your email and ID\n");
+            System.out.println("Email:\t");
+            username = input.next();
+            System.out.println("Password:\t");
+            password = input.nextLong();
+            exit = credentials(username,password);
+            if(exit){
+               break;
+            }
+            else{
+               System.out.println("Incorrect log-in. Please Try Again\n\n");
+            }
+         }
+         
 
 			while (exit) {
 				possible = "";
@@ -127,4 +145,12 @@ public class Main2Updated {
 		}
 
 	}
+   public static boolean credentials(String user,long passwrd){
+      for(String item: emails.keySet()){
+         if(item.equals(user) & emails.get(item).getID()==passwrd){
+            return true;
+         }
+     }
+     return false;
+   }
 }
